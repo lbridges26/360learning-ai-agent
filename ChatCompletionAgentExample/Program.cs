@@ -4,8 +4,9 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
 using Plugins;
 using Microsoft.SemanticKernel.Functions;
-using Microsoft.SemanticKernel.Connectors.OpenAI; 
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.ChatCompletion;
+
 
 namespace ChatCompletionAgentExample;
 
@@ -17,7 +18,8 @@ public static class Program
 
         Console.WriteLine("Initialize plugins...");
         GitHubSettings githubSettings = settings.GetSettings<GitHubSettings>();
-    
+        Console.WriteLine($"GitHub Base URL: {githubSettings.BaseUrl}");
+        
         GitHubPlugin githubPlugin = new(githubSettings);
         var userProfile = await githubPlugin.GetUserProfileAsync();
 
@@ -25,15 +27,16 @@ public static class Program
         IKernelBuilder builder = Kernel.CreateBuilder();
 
         builder.AddAzureOpenAIChatCompletion(
-        settings.AzureOpenAI.ChatModelDeployment,
-        settings.AzureOpenAI.Endpoint,
-        settings.AzureOpenAI.ApiKey);
+            settings.AzureOpenAI.ChatModelDeployment,
+            settings.AzureOpenAI.Endpoint,
+            settings.AzureOpenAI.ApiKey
+        );
 
-        builder.Plugins.AddFromObject(githubPlugin);
+        builder.Plugins.AddFromObject(githubPlugin, "GitHub");
 
         Kernel kernel = builder.Build();
 
-        Console.WriteLine("Defining agent...");
+        Console.WriteLine("Defining agent with persona...");
         ChatCompletionAgent agent =
             new()
             {
@@ -53,12 +56,18 @@ public static class Program
                         - You can access user profiles and repository details
                         - You can create plans to solve complex problems involving GitHub data
                         
+                        ## Function Usage:
+                        - You have access to GitHub functions to retrieve repository and user information
+                        - Use these functions when appropriate to get real data instead of making assumptions
+                        - Always explain what information you're retrieving and why it's relevant
+
                         The repository you are currently analyzing is: {{$repository}}
                         The current user you're assisting has username: {{$user.username}}
                         The current date and time is: {{$now}}
                         
                         Always break down your thought process and explain how you're approaching each question.
                         """,
+
                 Kernel = kernel,
                 Arguments = new KernelArguments()
                 {
@@ -81,6 +90,7 @@ public static class Program
             {
                 continue;
             }
+            
             if (input.Trim().Equals("EXIT", StringComparison.OrdinalIgnoreCase))
             {
                 isComplete = true;
@@ -92,20 +102,34 @@ public static class Program
             Console.WriteLine();
 
             DateTime now = DateTime.Now;
+
+            var executionSettings = new OpenAIPromptExecutionSettings
+            {
+                ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
+            };
+
             KernelArguments arguments =
                 new()
                 {
                     { "now", $"{now.ToShortDateString()} {now.ToShortTimeString()}" },
                     { "repository", "microsoft/semantic-kernel" },
                     { "user.username", userProfile.Login },
+                    { "executionSettings", executionSettings }
                 };
-            await foreach (ChatMessageContent response in agent.InvokeAsync(message, agentThread, options: new() { KernelArguments = arguments }))
+
+            await foreach (ChatMessageContent response in agent.InvokeAsync(
+                message,
+                agentThread,
+                options: new()
+                {
+                    KernelArguments = arguments
+                }))
             {
-                // Display response.
                 Console.WriteLine($"{response.Content}");
             }
 
         } while (!isComplete);
     }
 }
+
 
