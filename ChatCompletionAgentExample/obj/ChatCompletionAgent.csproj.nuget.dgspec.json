@@ -1,0 +1,97 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/larry.bridges/repos2/360learning-ai-agent/ChatCompletionAgent/ChatCompletionAgent.csproj": {}
+  },
+  "projects": {
+    "/Users/larry.bridges/repos2/360learning-ai-agent/ChatCompletionAgent/ChatCompletionAgent.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/larry.bridges/repos2/360learning-ai-agent/ChatCompletionAgent/ChatCompletionAgent.csproj",
+        "projectName": "ChatCompletionAgent",
+        "projectPath": "/Users/larry.bridges/repos2/360learning-ai-agent/ChatCompletionAgent/ChatCompletionAgent.csproj",
+        "packagesPath": "/Users/larry.bridges/.nuget/packages/",
+        "outputPath": "/Users/larry.bridges/repos2/360learning-ai-agent/ChatCompletionAgent/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/larry.bridges/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.13.2, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.Extensions.Configuration.UserSecrets": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.SemanticKernel.Agents.Core": {
+              "target": "Package",
+              "version": "[1.46.0, )"
+            },
+            "Microsoft.SemanticKernel.Connectors.AzureOpenAI": {
+              "target": "Package",
+              "version": "[1.46.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
