@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChatCompletionAgentExample")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a467298354f0bec2691612fa2857be9ff796f4f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d908a26bcd8b241cb30d7e0921edff202f118088")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChatCompletionAgentExample")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChatCompletionAgentExample")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
